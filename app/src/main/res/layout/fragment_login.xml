@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.other_fragments.LoginFragment">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:src="@drawable/app_logo" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/helloText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hey_login_now"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/newText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/helloText"
+            android:layout_marginTop="10dp"
+            android:text="@string/if_you_are_new_then"
+            android:textColor="@color/grey"
+            android:textSize="21sp" />
+
+        <Button
+            android:id="@+id/signUpBtn"
+            style="?borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/helloText"
+            android:layout_toEndOf="@id/newText"
+            android:text="@string/create_new"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="21sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/newText"
+            android:layout_marginTop="50dp"
+            android:hint="@string/email"
+            app:hintTextColor="@color/grey"
+            app:startIconDrawable="@drawable/ic_baseline_email_24"
+            app:startIconTint="@color/green">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_text_bg"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/emailLayout"
+            android:layout_marginTop="15dp"
+            android:hint="@string/password"
+            app:hintTextColor="@color/grey"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/green"
+            app:startIconDrawable="@drawable/ic_baseline_lock_open_24"
+            app:startIconTint="@color/green">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_text_bg"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordLayout"
+            android:layout_marginTop="15dp"
+            android:padding="15dp"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:textSize="21sp" />
+
+        <Button
+            android:id="@+id/skipBtn"
+            style="?borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loginBtn"
+            android:layout_margin="25dp"
+            android:text="@string/skip_for_now"
+            android:textColor="@color/grey" />
+
+    </RelativeLayout>
+
+</LinearLayout>

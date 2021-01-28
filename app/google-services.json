@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "704987045422",
+    "project_id": "organic-world-103fe",
+    "storage_bucket": "organic-world-103fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704987045422:android:74d1e1adf92824566c09bf",
+        "android_client_info": {
+          "package_name": "com.example.organicworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704987045422-7ap4u4qomc7kcukn21qjuoc82r0ihi8m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRVxMriMVO6VAuM6ZROw3qaq5vzEW3u2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704987045422-7ap4u4qomc7kcukn21qjuoc82r0ihi8m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

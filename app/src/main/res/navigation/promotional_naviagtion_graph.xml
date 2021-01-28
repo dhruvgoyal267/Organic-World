@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/promotional_naviagtion_graph"
+    app:startDestination="@id/promotionalFragmentFour">
+
+    <fragment
+        android:id="@+id/promotionalFragmentFour"
+        android:name="com.organic.organicworld.fragments.promotional_fragments.PromotionalFragmentFour"
+        android:label="fragment_promotional_four"
+        tools:layout="@layout/fragment_promotional_four" >
+        <action
+            android:id="@+id/action_promotionalFragmentFour_to_promotionalFragmentOne"
+            app:destination="@id/promotionalFragmentOne" />
+    </fragment>
+    <fragment
+        android:id="@+id/promotionalFragmentOne"
+        android:name="com.organic.organicworld.fragments.promotional_fragments.PromotionalFragmentOne"
+        android:label="fragment_promotional_one"
+        tools:layout="@layout/fragment_promotional_one" >
+        <action
+            android:id="@+id/action_promotionalFragmentOne_to_promotionalFragmentTwo"
+            app:destination="@id/promotionalFragmentTwo" />
+    </fragment>
+    <fragment
+        android:id="@+id/promotionalFragmentThree"
+        android:name="com.organic.organicworld.fragments.promotional_fragments.PromotionalFragmentThree"
+        android:label="fragment_promotional_three"
+        tools:layout="@layout/fragment_promotional_three" >
+        <action
+            android:id="@+id/action_promotionalFragmentThree_to_promotionalFragmentFour"
+            app:destination="@id/promotionalFragmentFour" />
+    </fragment>
+    <fragment
+        android:id="@+id/promotionalFragmentTwo"
+        android:name="com.organic.organicworld.fragments.promotional_fragments.PromotionalFragmentTwo"
+        android:label="fragment_promotional_two"
+        tools:layout="@layout/fragment_promotional_two" >
+        <action
+            android:id="@+id/action_promotionalFragmentTwo_to_promotionalFragmentThree"
+            app:destination="@id/promotionalFragmentThree" />
+    </fragment>
+</navigation>

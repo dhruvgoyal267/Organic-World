@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/green_dark"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingTop="15dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <androidx.cardview.widget.CardView
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_width="wrap_content"
+        app:cardCornerRadius="20dp">
+
+        <ImageView
+            android:contentDescription="@string/app_logo"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_width="30dp"
+            app:srcCompat="@drawable/navigation_icon" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:text="@string/hey"
+        android:textColor="@color/white"
+        android:textSize="21sp" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="21sp" />
+</LinearLayout>
