@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.other_fragments.SignUpFragment">
+    tools:context=".views.fragments.other_fragments.SignUpFragment">
 
     <ImageView
         android:id="@+id/appLogo"

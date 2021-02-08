@@ -20,7 +20,7 @@
         android:checkableBehavior="none">
         <item
             android:id="@+id/daily_essential"
-            android:icon="@drawable/ic_baseline_shopping_cart_24"
+            android:icon="@drawable/daily_essential_icon"
             android:title="@string/daily_essentials" />
         <item
             android:id="@+id/cosmetics"
@@ -28,11 +28,15 @@
             android:title="@string/cosmetics" />
         <item
             android:id="@+id/food_and_beverages"
-            android:icon="@drawable/ic_baseline_fastfood_24"
+            android:icon="@drawable/foods_and_drinks_icon"
             android:title="@string/foods_amp_beverages" />
         <item
             android:id="@+id/medicines"
-            android:icon="@drawable/ic_baseline_medical_services_24"
+            android:icon="@drawable/medicines_icon"
             android:title="@string/medicines" />
+        <item
+            android:id="@+id/showAll"
+            android:icon="@drawable/show_all"
+            android:title="@string/all_categories" />
     </group>
 </menu>

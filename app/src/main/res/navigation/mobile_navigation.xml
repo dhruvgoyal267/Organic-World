@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.organic.organicworld.fragments.other_fragments.HomeFragment"
+        android:name="com.organic.organicworld.views.fragments.other_fragments.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-
+   
 </navigation>
