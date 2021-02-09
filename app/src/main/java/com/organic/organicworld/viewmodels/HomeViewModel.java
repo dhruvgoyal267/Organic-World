@@ -13,22 +13,19 @@ import java.util.List;
 
 public class HomeViewModel extends ViewModel {
 
-    private final LiveData<List<PromotionalModel>> banners;
-    private final LiveData<List<HomeScreenTabModel>> homeTab;
+    HomeScreenRepository repository;
 
     public HomeViewModel() {
-        HomeScreenRepository repository = new HomeScreenRepository();
-        repository.loadBanners();
-        banners = repository.getBanners();
-        repository.loadCategories();
-        homeTab = repository.getTabs();
+        repository = new HomeScreenRepository();
     }
 
     public LiveData<List<PromotionalModel>> loadBanners() {
-        return banners;
+        repository.loadBanners();
+        return repository.getBanners();
     }
 
     public LiveData<List<HomeScreenTabModel>> loadHomeTabs() {
-        return homeTab;
+        repository.loadCategories();
+        return repository.getTabs();
     }
 }

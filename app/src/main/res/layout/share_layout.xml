@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
             android:layout_marginTop="5dp"
+            android:textColor="@color/dark_grey"
             android:layout_toStartOf="@id/icon"
             android:text="@string/shareMsg" />
     </RelativeLayout>

@@ -10,5 +10,10 @@
         android:name="com.organic.organicworld.views.fragments.other_fragments.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-   
+    <fragment
+        android:id="@+id/showAll"
+        android:name="com.organic.organicworld.views.fragments.other_fragments.ListItemsFragment"
+        android:label="All Categories"
+        tools:layout="@layout/fragment_list_items" />
+
 </navigation>

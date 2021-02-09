@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +24,7 @@ import com.organic.organicworld.models.HomeScreenTabModel;
 import com.organic.organicworld.viewmodels.HomeViewModel;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,6 +32,7 @@ import java.util.TimerTask;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +51,6 @@ public class HomeFragment extends Fragment {
         binding.tabsList.setHasFixedSize(true);
 
         homeViewModel.loadHomeTabs().observe(getViewLifecycleOwner(), adapter1::updateList);
-
 
 
         new TabLayoutMediator(binding.tabLayout, binding.homeScreenPromotionViewPager, (tab, pos) -> {
@@ -71,5 +73,11 @@ public class HomeFragment extends Fragment {
                 handler.post(runnable);
             }
         }, 5000, 5000);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(((AppCompatActivity) requireContext()).getSupportActionBar()).setTitle(R.string.app_name);
     }
 }

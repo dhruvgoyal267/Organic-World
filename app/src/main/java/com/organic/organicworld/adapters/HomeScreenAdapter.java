@@ -57,14 +57,6 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenAdapter.ta
             HomeScreenTabModel model = screens.get(position);
             TabsAdapter adapter = new TabsAdapter();
             adapter.updateList(model.getModels());
-            DividerItemDecoration decoration = new DividerItemDecoration(context,
-                    DividerItemDecoration.HORIZONTAL);
-            decoration.setDrawable(new ColorDrawable(context.getResources().getColor(R.color.grey)));
-            holder.customTabsBinding.tabsCard.addItemDecoration(decoration);
-            decoration = new DividerItemDecoration(context,
-                    DividerItemDecoration.VERTICAL);
-            decoration.setDrawable(new ColorDrawable(context.getResources().getColor(R.color.grey)));
-            holder.customTabsBinding.tabsCard.addItemDecoration(decoration);
             holder.customTabsBinding.tabsCard.setAdapter(adapter);
             holder.customTabsBinding.homeTileText.setText(model.getTitle());
         }

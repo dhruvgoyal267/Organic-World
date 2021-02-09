@@ -8,11 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.organic.organicworld.databinding.CustomPromotionalBannerBinding;
 import com.organic.organicworld.models.PromotionalModel;
-import com.organic.organicworld.utils.UtilityFunctions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +29,6 @@ public class PromotionViewPagerAdapter extends RecyclerView.Adapter<PromotionVie
     public void onBindViewHolder(@NonNull promotionalViewHolder holder, int position) {
         Glide.with(context)
                 .load(promotionalModels.get(position).getImageUrl())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
                 .into(holder.bannerBinding.promotionalImage);
     }

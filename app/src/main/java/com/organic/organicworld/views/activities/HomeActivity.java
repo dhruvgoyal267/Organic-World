@@ -2,22 +2,23 @@ package com.organic.organicworld.views.activities;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.Menu;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.organic.organicworld.R;
 import com.organic.organicworld.databinding.ActivityHomeBinding;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import com.organic.organicworld.views.fragments.other_fragments.HomeFragment;
+import com.organic.organicworld.views.fragments.other_fragments.ListItemsFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
     ActivityHomeBinding binding;
+    ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,32 +28,50 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(view);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home,
-                R.id.my_account,
-                R.id.daily_essential,
-                R.id.cosmetics,
-                R.id.food_and_beverages,
-                R.id.medicines,
-                R.id.showAll)
-                .setOpenableLayout(binding.drawerLayout)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+
+        toggle = new ActionBarDrawerToggle(this, binding.drawerLayout
+                , toolbar, R.string.open, R.string.close);
+
+        binding.drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        binding.navView.setCheckedItem(R.id.nav_home);
+
+        binding.navView.setNavigationItemSelectedListener(item -> {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+            if (item.isChecked())
+                item.setChecked(false);
+            else {
+                item.setChecked(true);
+                if (item.getItemId() == R.id.showAll) {
+                    item.setCheckable(true);
+                    toolbar.setTitle(R.string.all_categories);
+                    ListItemsFragment fragment = new ListItemsFragment();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.nav_host_fragment, fragment, "Categories")
+                            .addToBackStack("Categories")
+                            .commit();
+                } else if (item.getItemId() == R.id.nav_home) {
+                    toolbar.setTitle(R.string.app_name);
+                    HomeFragment fragment = new HomeFragment();
+                    getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.nav_host_fragment, fragment, "Home")
+                            .commit();
+                }
+            }
+            return true;
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+    public void onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START))
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
     }
 }

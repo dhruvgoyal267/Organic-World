@@ -38,5 +38,7 @@
     <string name="name">Name</string>
     <string name="help_friends_and_family">Help Friends And Family</string>
     <string name="shareMsg">Just <b>click on me</b> to help them to switch to a better healthy organic life.</string>
-    <string name="all_categories">All Categories</string>
+    <string name="all_categories">Shop By Categories</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
 </resources>
