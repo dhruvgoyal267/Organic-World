@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.organic.organicworld.R;
 import com.organic.organicworld.databinding.CustomProductViewBinding;
 import com.organic.organicworld.models.HomeScreenTileModel;
 import com.organic.organicworld.utils.UtilityFunctions;
+import com.organic.organicworld.views.fragments.other_fragments.ListItemsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,15 @@ public class TabsAdapter extends RecyclerView.Adapter<TabsAdapter.cardViewHolder
         HomeScreenTileModel model = tiles.get(position);
         UtilityFunctions.loadImage(context, model.getImageUrl(), holder.binding.productImage);
         holder.binding.productName.setText(model.getName());
+        holder.binding.getRoot().setOnClickListener(v -> {
+            ListItemsFragment fragment = new ListItemsFragment(model.getCategoryUrl(),model.getName());
+            AppCompatActivity activity = (AppCompatActivity) context;
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment, fragment, model.getName() + " Fragment")
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 
     @Override

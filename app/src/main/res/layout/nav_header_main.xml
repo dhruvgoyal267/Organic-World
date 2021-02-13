@@ -43,5 +43,6 @@
         android:layout_gravity="bottom"
         android:layout_marginStart="10dp"
         android:textColor="@color/white"
+        android:text="@string/champ"
         android:textSize="21sp" />
 </LinearLayout>

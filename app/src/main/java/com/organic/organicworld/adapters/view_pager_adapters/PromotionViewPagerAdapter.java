@@ -17,6 +17,7 @@ import java.util.List;
 public class PromotionViewPagerAdapter extends RecyclerView.Adapter<PromotionViewPagerAdapter.promotionalViewHolder> {
     List<PromotionalModel> promotionalModels = new ArrayList<>();
     Context context;
+    int customPosition = 0;
 
     @NonNull
     @Override
@@ -27,16 +28,22 @@ public class PromotionViewPagerAdapter extends RecyclerView.Adapter<PromotionVie
 
     @Override
     public void onBindViewHolder(@NonNull promotionalViewHolder holder, int position) {
+
         Glide.with(context)
-                .load(promotionalModels.get(position).getImageUrl())
+                .load(promotionalModels.get(customPosition).getImageUrl())
                 .centerCrop()
                 .into(holder.bannerBinding.promotionalImage);
+        customPosition++;
+        if(customPosition == 4)
+            customPosition = 0;
     }
 
 
     @Override
     public int getItemCount() {
-        return promotionalModels.size();
+        if(promotionalModels.isEmpty())
+            return 0;
+        return Integer.MAX_VALUE;
     }
 
     public void updateList(List<PromotionalModel> newList) {

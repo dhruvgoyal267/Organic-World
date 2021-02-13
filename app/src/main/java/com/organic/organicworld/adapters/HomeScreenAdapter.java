@@ -1,19 +1,25 @@
 package com.organic.organicworld.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.organic.organicworld.BuildConfig;
 import com.organic.organicworld.R;
+import com.organic.organicworld.adapters.view_pager_adapters.ItemListFragmentAdapter;
 import com.organic.organicworld.adapters.view_pager_adapters.TabsAdapter;
 import com.organic.organicworld.databinding.CustomTabsViewBinding;
 import com.organic.organicworld.databinding.ShareLayoutBinding;
 import com.organic.organicworld.models.HomeScreenTabModel;
+import com.organic.organicworld.views.fragments.other_fragments.ListItemsFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +57,13 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenAdapter.ta
         if (getItemViewType(position) == 2) {
             holder.shareBinding.shareViewHolder.setOnClickListener(v -> {
                 //share app code
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Organic World");
+                String shareMessage = "\nNo need to search organic products for long hours on Internet.\nJust download the Organic World now\n";
+                shareMessage += "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                context.startActivity(Intent.createChooser(shareIntent, "Choose one"));
             });
         } else {
             holder.customTabsBinding.tabHolder.setBackgroundColor(context.getResources().getColor(colors.get(position % colors.size())));
@@ -59,6 +72,8 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenAdapter.ta
             adapter.updateList(model.getModels());
             holder.customTabsBinding.tabsCard.setAdapter(adapter);
             holder.customTabsBinding.homeTileText.setText(model.getTitle());
+            holder.customTabsBinding.seeAll.setOnClickListener(v -> {
+            });
         }
     }
 

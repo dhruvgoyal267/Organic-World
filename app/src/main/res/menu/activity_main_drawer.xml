@@ -4,24 +4,47 @@
     tools:showIn="navigation_view">
 
     <group
-        android:id="@+id/top_header"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:title="@string/menu_home"
-            />
-        <item
-            android:id="@+id/my_account"
-            android:icon="@drawable/ic_baseline_account_circle_24"
-            android:title="@string/my_account" />
-    </group>
-    <group
         android:id="@+id/category"
         android:checkableBehavior="single">
         <item
             android:id="@+id/showAll"
             android:icon="@drawable/show_all"
             android:title="@string/all_categories" />
+    </group>
+    <group
+        android:id="@+id/userSpecific"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/join"
+            android:icon="@drawable/join_icon"
+            android:title="@string/join_organic_community" />
+        <item
+            android:id="@+id/share"
+            android:icon="@drawable/share_icon"
+            android:title="@string/share_app" />
+        <item
+            android:id="@+id/rateApp"
+            android:icon="@drawable/rate_icon"
+            android:title="@string/rate_us" />
+    </group>
+    <group
+        android:id="@+id/suggestion"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/suggestProduct"
+            android:icon="@drawable/suggest_product"
+            android:title="@string/suggest_products" />
+        <item
+            android:id="@+id/feedback"
+            android:icon="@drawable/feedback"
+            android:title="@string/want_to_say_something" />
+        <item
+            android:id="@+id/faq"
+            android:icon="@drawable/faq"
+            android:title="@string/faqs" />
+        <item
+            android:id="@+id/privacyPolicy"
+            android:icon="@drawable/privacy_policy"
+            android:title="@string/privacy_policy" />
     </group>
 </menu>

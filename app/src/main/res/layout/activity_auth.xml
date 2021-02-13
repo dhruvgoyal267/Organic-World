@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.activities.AuthActivity">
 
     <RelativeLayout
+        android:id="@+id/authView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
             android:orientation="vertical"
             android:padding="15dp">
 
@@ -27,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="@string/get_started"
-                android:textColor="@color/grey"
+                android:textColor="@color/dark_grey"
                 android:textSize="24sp" />
 
             <TextView
@@ -38,37 +41,104 @@
                 android:textColor="@color/black"
                 android:textSize="36sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/get_rid_of_those_bottles_filled_with_chemicals_and_start_using_organic_vagan_and_completely_organic_products"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp"
+                android:textStyle="italic" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/skipBtn"
-            style="?borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="25dp"
-            android:text="@string/skip_for_now"
-            android:textColor="@color/grey"
-            android:textSize="18sp" />
 
         <Button
-            android:id="@+id/loginBtn"
+            android:id="@+id/continueBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="25dp"
+            android:layout_marginEnd="15dp"
+           android:layout_marginBottom="30dp"
+            android:background="@drawable/card_bg"
             android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
-            android:drawableRight="@drawable/ic_baseline_navigate_next_24"
             android:padding="10dp"
-            android:text="@string/login"
+            android:text="@string/continue1"
             android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/auth_fragment"
+    <RelativeLayout
+        android:id="@+id/nameFillUp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/appLogo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/app_logo" />
+
+
+        <TextView
+            android:id="@+id/helloText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appLogo"
+            android:text="@string/welcome_to_the_new_world"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/greetText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/helloText"
+            android:layout_marginTop="8dp"
+            android:text="@string/congrats_you_are_the_real_champ_nyou_chooses_the_right_path_nwe_are_wishing_you_a_great_life_ahead"
+            android:textColor="@color/dark_grey"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+            android:id="@+id/nameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/greetText"
+            android:layout_marginTop="50dp"
+            app:borderColor="@color/green"
+            app:borderWidth="2dp">
+
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/name"
+                android:textColorHint="@color/dark_grey" />
+        </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
+
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameLayout"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/card_bg"
+            android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
+            android:padding="10dp"
+            android:text="@string/continue1"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

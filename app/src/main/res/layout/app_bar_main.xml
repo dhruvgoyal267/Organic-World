@@ -11,13 +11,36 @@
         android:layout_height="wrap_content"
         android:theme="@style/Theme.OrganicWorld.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimaryVariant"
-            app:popupTheme="@style/Theme.OrganicWorld.PopupOverlay" />
+            android:layout_height="wrap_content">
 
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:visibility="gone"
+                app:iconifiedByDefault="false"
+                app:queryHint="Search products" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:visibility="visible"
+                app:popupTheme="@style/Theme.OrganicWorld.PopupOverlay" />
+
+            <ImageButton
+                android:id="@+id/searchBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="?actionBarSize"
+                android:layout_alignParentEnd="true"
+                android:background="@color/green"
+                android:focusable="true"
+                android:padding="8dp"
+                android:src="@drawable/ic_baseline_search_24" />
+
+        </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />

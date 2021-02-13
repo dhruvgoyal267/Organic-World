@@ -41,7 +41,7 @@ public class HomeScreenRepository {
     public void loadBanners() {
         FirebaseDatabase.getInstance().getReference()
                 .child("Promotional Images")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         List<PromotionalModel> models = new ArrayList<>();
@@ -61,7 +61,7 @@ public class HomeScreenRepository {
     }
 
     public void loadCategories() {
-        reference.child("Home Screen Tabs").addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child("Home Screen Tabs").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 getTabs(snapshot);
