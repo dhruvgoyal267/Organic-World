@@ -1,9 +1,7 @@
 package com.organic.organicworld.views.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -13,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.droidnet.DroidListener;
@@ -26,13 +23,24 @@ import com.organic.organicworld.adapters.view_pager_adapters.ItemListFragmentAda
 import com.organic.organicworld.databinding.ActivityHomeBinding;
 import com.organic.organicworld.databinding.NavHeaderMainBinding;
 import com.organic.organicworld.viewmodels.ProductViewModel;
-import com.organic.organicworld.views.fragments.other_fragments.HomeFragment;
 import com.organic.organicworld.views.fragments.other_fragments.ListItemsFragment;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
-public class HomeActivity extends AppCompatActivity implements DroidListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.core.ObservableSource;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.functions.Predicate;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
+public class HomeActivity extends AppCompatActivity implements DroidListener, NavigationView.OnNavigationItemSelectedListener {
+
+    private CompositeDisposable disposable;
     private ActivityHomeBinding binding;
     private ActionBarDrawerToggle toggle;
     private boolean isListenerRegistered = false;
@@ -50,7 +58,10 @@ public class HomeActivity extends AppCompatActivity implements DroidListener, Se
         droidNet = DroidNet.getInstance();
         droidNet.addInternetConnectivityListener(this);
 
-        snackbar = Snackbar.make(binding.getRoot(), "Please connect to internet!", Snackbar.LENGTH_INDEFINITE).setAction("Retry", null);
+        disposable = new CompositeDisposable();
+
+        snackbar = Snackbar.make(binding.
+                getRoot(), "Please! connect to internet", Snackbar.LENGTH_INDEFINITE);
 
         //setting hamburger icon
         setupHamBurgerIcon();
@@ -69,12 +80,54 @@ public class HomeActivity extends AppCompatActivity implements DroidListener, Se
         getSupportFragmentManager().addOnBackStackChangedListener(this::switchHamBurgerAndBack);
 
 
-        //initializing viewmodel
+        //initializing view model
         model = new ViewModelProvider(this).get(ProductViewModel.class);
 
 
         //adding search view listener
-        binding.appBar.searchView.setOnQueryTextListener(this);
+        Observable<String> observable = Observable.create(
+                (ObservableOnSubscribe<String>) emitter ->
+                        binding.appBar.searchView.setOnQueryTextListener(
+                                new SearchView.OnQueryTextListener() {
+                                    @Override
+                                    public boolean onQueryTextSubmit(String query) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onQueryTextChange(String newText) {
+                                        if (!emitter.isDisposed())
+                                            emitter.onNext(newText);
+                                        return false;
+                                    }
+                                }))
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .filter(s -> !s.isEmpty())
+                .distinctUntilChanged()
+                .subscribeOn(Schedulers.io());
+
+
+        observable.subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                disposable.add(d);
+            }
+
+            @Override
+            public void onNext(@io.reactivex.rxjava3.annotations.NonNull String s) {
+                model.loadSearchItems(s);
+            }
+
+            @Override
+            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
 
         binding.appBar.searchBtn.setOnClickListener(v -> {
             search();
@@ -85,6 +138,7 @@ public class HomeActivity extends AppCompatActivity implements DroidListener, Se
         binding.appBar.searchBtn.setVisibility(View.GONE);
         binding.appBar.searchView.setVisibility(View.VISIBLE);
         binding.appBar.toolbar.setVisibility(View.GONE);
+        binding.appBar.searchView.setIconified(false);
         ListItemsFragment fragment = new ListItemsFragment(ItemListFragmentAdapter.TYPE.Search, model);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -112,7 +166,6 @@ public class HomeActivity extends AppCompatActivity implements DroidListener, Se
         }
         isListenerRegistered = !isListenerRegistered;
     }
-
 
     private void setupHamBurgerIcon() {
         setSupportActionBar(binding.appBar.toolbar);
@@ -171,7 +224,7 @@ public class HomeActivity extends AppCompatActivity implements DroidListener, Se
             } else if (item.getItemId() == R.id.join) {
                 //Implement all social links
             } else if (item.getItemId() == R.id.rateApp) {
-                Intent intent = null;
+                /*Intent intent = null;
                 try {
                     intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("market:?//details?id=${context?.packageName}"));
@@ -181,23 +234,14 @@ public class HomeActivity extends AppCompatActivity implements DroidListener, Se
                 } finally {
                     if (intent != null)
                         startActivity(intent);
-                }
+                }*/
+
+                //ReviewManager manager = new ReviewManagerFactory.create(context);
+
             } else if (item.getItemId() == R.id.suggestProduct) {
 
             }
         }
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        model.loadSearchItems(query);
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        model.loadSearchItems(newText);
         return true;
     }
 
@@ -213,5 +257,6 @@ public class HomeActivity extends AppCompatActivity implements DroidListener, Se
     protected void onStop() {
         super.onStop();
         droidNet.removeInternetConnectivityChangeListener(this);
+        disposable.clear();
     }
 }

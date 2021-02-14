@@ -2,25 +2,19 @@ package com.organic.organicworld.views.fragments.other_fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.organic.organicworld.R;
 import com.organic.organicworld.adapters.view_pager_adapters.ItemListFragmentAdapter;
 import com.organic.organicworld.databinding.FragmentListItemsBinding;
 import com.organic.organicworld.models.Item;
-import com.organic.organicworld.utils.UtilityFunctions;
 import com.organic.organicworld.viewmodels.ProductViewModel;
 
 import java.util.List;
@@ -77,7 +71,6 @@ public class ListItemsFragment extends Fragment implements SwipeRefreshLayout.On
         binding.itemListView.setColorSchemeColors(Color.GREEN);
 
         viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
-        binding.loadingLayout.getRoot().setVisibility(View.VISIBLE);
         switch (type) {
             case Category:
                 viewModel.getCategories().observe(getViewLifecycleOwner(), this::updateProgressBar);
@@ -94,6 +87,8 @@ public class ListItemsFragment extends Fragment implements SwipeRefreshLayout.On
                 viewModel.getOptionsWithUrl(productUrl).observe(getViewLifecycleOwner(), this::updateProgressBar);
                 break;
             case Search:
+                binding.loadingLayout.getRoot().setVisibility(View.GONE);
+                binding.itemListView.setVisibility(View.VISIBLE);
                 model.getSearchItems().observe(getViewLifecycleOwner(), itemAdapter::updateList);
         }
 
@@ -126,4 +121,5 @@ public class ListItemsFragment extends Fragment implements SwipeRefreshLayout.On
             Objects.requireNonNull(((AppCompatActivity) requireContext()).getSupportActionBar()).setTitle(title);
         }
     }
+
 }
