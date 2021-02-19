@@ -21,15 +21,18 @@ public class UserPref {
         key = new Preferences.Key<>("userName");
     }
 
-    public void saveName(String name) {
+    public boolean saveName(String name) {
+        if (name == null || name.isEmpty())
+            return false;
         RxDataStore.updateDataAsync(dataStore, preferences -> {
             MutablePreferences mutablePreferences = preferences.toMutablePreferences();
             mutablePreferences.set(key, name);
             return Single.just(mutablePreferences);
         });
+        return true;
     }
 
     public Flowable<String> getUserName() {
-            return RxDataStore.data(dataStore).map(preferences -> preferences.get(key));
+        return RxDataStore.data(dataStore).map(preferences -> preferences.get(key));
     }
 }

@@ -13,6 +13,7 @@
     <color name="hintColor">#6C6C6C</color>
     <color name="green_dark">#0e6b0e</color>
     <color name="orange">#FFA082</color>
+    <color name="transparent">#59000000</color>
     <color name="yellow">#FFEB3B</color>
     <color name="skyBlue">#03A9F4</color>
     <color name="lightOrange">#ffd54f</color>

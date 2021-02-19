@@ -2,9 +2,7 @@ package com.organic.organicworld.adapters.view_pager_adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.InetAddresses;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -16,8 +14,7 @@ import com.organic.organicworld.R;
 import com.organic.organicworld.databinding.CustomProductViewBinding;
 import com.organic.organicworld.models.Item;
 import com.organic.organicworld.utils.UtilityFunctions;
-import com.organic.organicworld.viewmodels.ProductViewModel;
-import com.organic.organicworld.views.fragments.other_fragments.ListItemsFragment;
+import com.organic.organicworld.views.fragments.ListItemsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +24,7 @@ public class ItemListFragmentAdapter extends RecyclerView.Adapter<ItemListFragme
     List<Item> items = new ArrayList<>();
     Context context;
 
-    public enum TYPE {Category, Product, Option, HomeTile, Search}
+    public enum TYPE {Category, Product, Option, HomeTile, Search, All}
 
     TYPE type;
     int categoryId;
@@ -77,6 +74,14 @@ public class ItemListFragmentAdapter extends RecyclerView.Adapter<ItemListFragme
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 context.startActivity(intent);
+            } else if (type == TYPE.All) {
+                ListItemsFragment fragment = new ListItemsFragment(item.getProductUrl(), item.getName());
+                AppCompatActivity activity = (AppCompatActivity) context;
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, fragment, "Product Fragment")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
@@ -91,6 +96,7 @@ public class ItemListFragmentAdapter extends RecyclerView.Adapter<ItemListFragme
         this.items = items;
         this.notifyDataSetChanged();
     }
+
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
         CustomProductViewBinding binding;

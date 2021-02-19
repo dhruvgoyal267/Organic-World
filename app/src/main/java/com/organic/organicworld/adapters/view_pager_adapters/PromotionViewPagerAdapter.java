@@ -1,13 +1,24 @@
 package com.organic.organicworld.adapters.view_pager_adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.organic.organicworld.R;
 import com.organic.organicworld.databinding.CustomPromotionalBannerBinding;
 import com.organic.organicworld.models.PromotionalModel;
 
@@ -28,27 +39,36 @@ public class PromotionViewPagerAdapter extends RecyclerView.Adapter<PromotionVie
 
     @Override
     public void onBindViewHolder(@NonNull promotionalViewHolder holder, int position) {
-
+        CircularProgressDrawable placeHolder = new CircularProgressDrawable(context);
+        placeHolder.setStrokeWidth(5f);
+        placeHolder.setColorSchemeColors(Color.GREEN);
+        placeHolder.setCenterRadius(30f);
+        placeHolder.start();
         Glide.with(context)
                 .load(promotionalModels.get(customPosition).getImageUrl())
-                .centerCrop()
+                .thumbnail(0.2f)
+                .placeholder(placeHolder)
+                .error(R.drawable.error_icon)
                 .into(holder.bannerBinding.promotionalImage);
         customPosition++;
-        if(customPosition == 4)
+        if (customPosition == 4) {
             customPosition = 0;
+        }
     }
 
 
     @Override
     public int getItemCount() {
-        if(promotionalModels.isEmpty())
+        if (promotionalModels.isEmpty())
             return 0;
         return Integer.MAX_VALUE;
     }
 
     public void updateList(List<PromotionalModel> newList) {
-        this.promotionalModels = newList;
-        notifyDataSetChanged();
+        if (this.promotionalModels.size() != newList.size()) {
+            this.promotionalModels = newList;
+            notifyDataSetChanged();
+        }
     }
 
     static class promotionalViewHolder extends RecyclerView.ViewHolder {

@@ -5,26 +5,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 import android.view.Window;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.gif.GifDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.google.android.gms.auth.api.Auth;
-import com.organic.organicworld.R;
 import com.organic.organicworld.databinding.ActivitySplashBinding;
 import com.organic.organicworld.utils.UserPref;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -32,6 +23,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class SplashActivity extends AppCompatActivity {
 
     ActivitySplashBinding binding;
+    CompositeDisposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +32,7 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.WHITE);
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        disposable = new CompositeDisposable();
         Handler handler = new Handler(Looper.getMainLooper());
         Runnable runnable = this::isNameSaved;
         handler.postDelayed(runnable, 2000);
@@ -52,6 +45,7 @@ public class SplashActivity extends AppCompatActivity {
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
                     }
 
                     @Override
@@ -68,8 +62,7 @@ public class SplashActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Intent intent;
-                        intent = new Intent(SplashActivity.this, AuthActivity.class);
+                        Intent intent = new Intent(SplashActivity.this, AuthActivity.class);
                         startActivity(intent);
                     }
 
@@ -80,9 +73,11 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onStop() {
         super.onStop();
+        disposable.clear();
         this.finish();
     }
 }

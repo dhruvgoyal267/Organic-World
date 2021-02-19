@@ -1,33 +1,30 @@
 package com.organic.organicworld.views.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.Window;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.organic.organicworld.databinding.ActivityAuthBinding;
 import com.organic.organicworld.utils.UserPref;
 
 import java.util.Objects;
 
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-
 public class AuthActivity extends AppCompatActivity {
 
     ActivityAuthBinding binding;
+    UserPref pref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UserPref pref = new UserPref(this);
+        pref = new UserPref(this);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setStatusBarColor(Color.WHITE);
         binding = ActivityAuthBinding.inflate(getLayoutInflater());
@@ -39,17 +36,30 @@ public class AuthActivity extends AppCompatActivity {
         });
 
         binding.signUpBtn.setOnClickListener(v -> {
-            String _name = "";
-            _name = Objects.requireNonNull(binding.nameEditText.getText()).toString();
-            pref.saveName(_name);
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.putExtra("userName", _name);
-            startActivity(intent);
+            binding.loader.setVisibility(View.VISIBLE);
+            binding.spin.setIndeterminate(true);
+            final String _name = Objects.requireNonNull(binding.nameEditText.getText()).toString();
+            Handler handler = new Handler(Looper.getMainLooper());
+            Runnable runnable = () -> saveName(_name);
+            handler.postDelayed(runnable, 1000);
         });
+    }
+
+    private void saveName(String name) {
+        boolean res = pref.saveName(name);
+        if (res) {
+            Intent intent = new Intent(AuthActivity.this, HomeActivity.class);
+            intent.putExtra("userName", name);
+            startActivity(intent);
+        } else {
+            binding.loader.setVisibility(View.GONE);
+            binding.nameEditText.setError("Kindly provide your name");
+        }
     }
 
     @Override
     protected void onStop() {
+        binding.loader.setVisibility(View.GONE);
         super.onStop();
         this.finish();
     }

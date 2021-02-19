@@ -38,11 +38,19 @@
     <string name="champ">Champ</string>
     <string name="get_rid_of_those_bottles_filled_with_chemicals_and_start_using_organic_vagan_and_completely_organic_products">Get rid of those bottles filled with chemicals and start using organic, vegan and completely organic products</string>
     <string name="congrats_you_are_the_real_champ_nyou_chooses_the_right_path_nwe_are_wishing_you_a_great_life_ahead">Congrats! You are the real Champ.\nYou chooses the right path.\nWe are wishing you a great life ahead</string>
-    <string name="join_organic_community">Join organic community</string>
+    <string name="join_organic_community">Join Organic Community</string>
     <string name="share_app">Share App</string>
     <string name="rate_us">Rate Us</string>
     <string name="suggest_products">Suggest Products</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="faqs">FAQs</string>
     <string name="want_to_say_something">Want to say something?</string>
+    <string name="suggest_products_you_want_us_to_add">Suggest product you want us to add</string>
+    <string name="product_name">Product name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="submit">Submit</string>
+    <string name="tell_us_what_you_feel_we_are_listening">Tell us what you feel,\nwe are listening</string>
+    <string name="your_email_address">Your email address</string>
+    <string name="koo">koo</string>
 </resources>

@@ -84,6 +84,7 @@ public class HomeScreenRepository {
             }
             tiles.add(new HomeScreenTabModel(tabs
                     , Objects.requireNonNull(snapshot1.child("name").getValue()).toString()));
+            tiles.add(new HomeScreenTabModel());
             if (tiles.size() == 2)
                 tiles.add(new HomeScreenTabModel());
         }

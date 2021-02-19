@@ -12,7 +12,7 @@ import com.organic.organicworld.R;
 import com.organic.organicworld.databinding.CustomProductViewBinding;
 import com.organic.organicworld.models.HomeScreenTileModel;
 import com.organic.organicworld.utils.UtilityFunctions;
-import com.organic.organicworld.views.fragments.other_fragments.ListItemsFragment;
+import com.organic.organicworld.views.fragments.ListItemsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class TabsAdapter extends RecyclerView.Adapter<TabsAdapter.cardViewHolder
         UtilityFunctions.loadImage(context, model.getImageUrl(), holder.binding.productImage);
         holder.binding.productName.setText(model.getName());
         holder.binding.getRoot().setOnClickListener(v -> {
-            ListItemsFragment fragment = new ListItemsFragment(model.getCategoryUrl(),model.getName());
+            ListItemsFragment fragment = new ListItemsFragment(model.getCategoryUrl(), model.getName());
             AppCompatActivity activity = (AppCompatActivity) context;
             activity.getSupportFragmentManager()
                     .beginTransaction()
