@@ -69,7 +69,7 @@ public class ItemListFragmentAdapter extends RecyclerView.Adapter<ItemListFragme
                         .replace(R.id.nav_host_fragment, fragment, "Options Fragment")
                         .addToBackStack(null)
                         .commit();
-            } else if (type == TYPE.Option || type == TYPE.Search) {
+            } else if (type == TYPE.Option || type == TYPE.Search || type == TYPE.HomeTile) {
                 String url = item.getProductUrl();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));

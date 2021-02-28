@@ -16,7 +16,7 @@ android {
         applicationId "com.organic.organicworld"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
+        versionCode 4
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,13 +45,14 @@ dependencies {
     implementation "android.arch.lifecycle:reactivestreams:$reactivestreams_version"
 
     //data store
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha07"
 
     // RxJava3 support
-    implementation "androidx.datastore:datastore-preferences-rxjava3:1.0.0-alpha06"
+    implementation "androidx.datastore:datastore-preferences-rxjava3:1.0.0-alpha07"
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+
     implementation 'com.google.firebase:firebase-database:19.6.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -78,7 +79,7 @@ dependencies {
 
     // Java language implementation
     implementation "androidx.fragment:fragment:$fragment_version"
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 

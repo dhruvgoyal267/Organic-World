@@ -122,7 +122,6 @@ public class ListItemsFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onStop() {
         super.onStop();
-        binding.listItem.setAdapter(null);
     }
 
     @Override
